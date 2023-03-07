@@ -1,6 +1,5 @@
 certifi
 Flask
-sklearn
 gunicorn
 sqlalchemy
 numpy
