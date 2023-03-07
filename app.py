@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request
 import numpy as np
 from sqlalchemy import text
+from database import engine
 
 # helo=[
 #     {
@@ -34,53 +35,53 @@ app=Flask(__name__)
 def ro():
     return render_template("login.html")
 
-# @app.route("/")
-# def ro():
-#     return render_template("index.html")
+@app.route("/")
+def ro():
+    return render_template("index.html")
 
-# @app.route("/ind")
-# def ind():
-#     return render_template("index.html")
-# @app.route("/register")
-# def load_login():
-#     return render_template("register.html")
-# @app.route("/login")
-# def log():
-#     return render_template("login.html")
-# @app.route("/",methods=['POST'])
-# def getvalue():
-#     login=[]
-#     try:
-#         with engine.connect() as conn:
-#             result = conn.execute(text("select * from login"))
-#             for row in result.all():
-#                 login.append(row._asdict())
-#     except:
-#         login=[{'id': 1, 'username': 'niranjan', 'pass': 'Niranjan@8822', 'email': 'kottaniranjan8822@gmail.com'}, 
-#         {'id': 2, 'username': 'mani', 'pass': 'mani@123', 'email': 'mani123@gmail.com'}, 
-#         {'id': 3, 'username': 'yaseen', 'pass': 'yaseen@123', 'email': 'yaseen@gmail.com'}, 
-#         {'id': 4, 'username': 'manoj', 'pass': 'manoj0311', 'email': 'manoj@gmail.com'}]
+@app.route("/ind")
+def ind():
+    return render_template("index.html")
+@app.route("/register")
+def load_login():
+    return render_template("register.html")
+@app.route("/login")
+def log():
+    return render_template("login.html")
+@app.route("/",methods=['POST'])
+def getvalue():
+    login=[]
+    try:
+        with engine.connect() as conn:
+            result = conn.execute(text("select * from login"))
+            for row in result.all():
+                login.append(row._asdict())
+    except:
+        login=[{'id': 1, 'username': 'niranjan', 'pass': 'Niranjan@8822', 'email': 'kottaniranjan8822@gmail.com'}, 
+        {'id': 2, 'username': 'mani', 'pass': 'mani@123', 'email': 'mani123@gmail.com'}, 
+        {'id': 3, 'username': 'yaseen', 'pass': 'yaseen@123', 'email': 'yaseen@gmail.com'}, 
+        {'id': 4, 'username': 'manoj', 'pass': 'manoj0311', 'email': 'manoj@gmail.com'}]
     
 
-#     us=request.form['user']
-#     pa=request.form["pass"]
-#     for i in login:
-#         if us=='admin':
-#             return render_template("administrator.html",login=login)
-# #         if i['username']==us:
-#             if i['pass']==pa:
-                # with engine.connect() as conn:
-                #     result = conn.execute(text("select * from login"))
-                #     login=[]
-                #     for row in result.all():
-                #         login.append(row._asdict())
-#                 return render_template("login.html",login=login)
-#                 # return render_template("administrator.html")
-#             else:
-#                 return render_template("login.html",s="Invalid Login Details!!")
-#         else:
-#             return render_template("login.html",s="Invalid Login Details!!")
-#     return render_template("administrator.html")
+    us=request.form['user']
+    pa=request.form["pass"]
+    for i in login:
+        if us=='admin':
+            return render_template("administrator.html",login=login)
+#         if i['username']==us:
+            if i['pass']==pa:
+                with engine.connect() as conn:
+                    result = conn.execute(text("select * from login"))
+                    login=[]
+                    for row in result.all():
+                        login.append(row._asdict())
+                return render_template("login.html",login=login)
+                # return render_template("administrator.html")
+            else:
+                return render_template("login.html",s="Invalid Login Details!!")
+        else:
+            return render_template("login.html",s="Invalid Login Details!!")
+    return render_template("administrator.html")
 
 # @app.route("/",methods=["POST"])
 # def predict():
